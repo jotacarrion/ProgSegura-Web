@@ -22,4 +22,5 @@ from web_site import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('login', views.login, name='login'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
