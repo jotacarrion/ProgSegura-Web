@@ -6,16 +6,12 @@ from django.db import models
 
 class ProfileUser(models.Model):
     phone_number = models.CharField(max_length=16)
-    image_profile = models.ImageField(upload_to='users/image_profiles', default=True, blank=True, null=True)
-    visible = models.IntegerField()
-    upload_at = models.DateTimeField(blank=True, null=True)
-    username = models.CharField(unique=True, max_length=150)
-    is_staff = models.IntegerField()
-    is_active = models.IntegerField()
+    #image_profile = models.ImageField(upload_to='users/image_profiles', default=True, blank=True, null=True)
+    username = models.OneToOneField(User, models.DO_NOTHING, unique=True)
+#    is_active = models.IntegerField()
 
-    def get_user(self):
-        return User.objects.get(username=self.username)
-
+    def __unicode__(self, ):
+        return str(self.phone_number)
 
 class Product(models.Model):
     name = models.CharField(max_length=128)
