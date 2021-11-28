@@ -30,7 +30,18 @@ def index(request):
     all_products = Product.objects.all()
     context['all_products'] = all_products
 
+    if request.POST:
+        if 'first_name' in request.POST and 'email' in request.POST:
+            first_name = request.POST['first_name']
+            email = request.POST['email']
 
+            if 'phone' in request.POST and request.POST['phone']:
+                phone = request.POST['phone']
+                if not user_detail and phone:
+                    ProfileUser.objects.create(username=user, phone_number=phone)
+                else:
+                    ProfileUser.objects.filter(username=user).update(phone_number=phone)
+                return redirect('user-detail')
 
     return render(request, 'index.html', context=context)
 
