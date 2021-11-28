@@ -6,7 +6,7 @@ from django.db import models
 
 class ProfileUser(models.Model):
     phone_number = models.CharField(max_length=16)
-    #image_profile = models.ImageField(upload_to='users/image_profiles', default=True, blank=True, null=True)
+    image_profile = models.ImageField(upload_to='users/image_profiles', default=True, blank=True, null=True)
     username = models.OneToOneField(User, models.DO_NOTHING, unique=True)
 #    is_active = models.IntegerField()
 
@@ -16,4 +16,5 @@ class ProfileUser(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=2048)
+    image_product = models.ImageField(upload_to='products', default=True, blank=True, null=True)
     price = models.FloatField()

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Masthead-->
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image-->
+        <img class="masthead-avatar mb-5" src="{% static 'assets/img/avataaars.svg'  %}" alt="..." />
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">Perfil de {{ user.first_name }}</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+        <!-- <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>-->
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form id="contactForm" method="POST" data-sb-form-api-token="API_TOKEN">
+                {% csrf_token %}
+                 <!-- Name input-->
+                <div class="row">
+                    <h6>Username</h6>
+                    <p>@{{ user.username }}</p>
+                </div>
+                <div class="row">
+                    <h6>Email</h6>
+                    <p>{{ user.email }}</p>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <h5>Datos de perfil</h5>
+                </div>
+                <!-- Name input-->
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="first_name" type="text" placeholder="Nombre"
+                           value="{{ user.first_name|default:'' }}" data-sb-validations="required" name="first_name" />
+                    <label for="first_name">Nombre</label>
+                    <div class="invalid-feedback" data-sb-feedback="first_name:required">First Name required.</div>
+                </div>
+                <!-- Email address input-->
+                <div class="form-floating mb-3">
+                    <p>Apellidos actuales: {{ user_detail.last_name|safe }}</p>
+                    <input class="form-control" id="last_name" type="text" placeholder="Apellidos"
+                           value="{{ user.last_name|default:'' }}" data-sb-validations="required" name="last_name" />
+                    <label for="last_name">Apellidos</label>
+                    <div class="invalid-feedback" data-sb-feedback="last_name:required">An last_name is required.</div>
+                </div>
+                <div class="form-floating mb-3">
+                    <p>Apellidos actuales: {{ user_detail.phone_number|safe }}</p>
+                    <input class="form-control" id="phone" type="text" maxlength="72" placeholder="Telefono"
+                           value="{{ user_detail.phone_number|default:'' }}"  name="phone" />
+                    <label for="phone">Teléfono</label>
+                </div>
+                <!---->
+                <!-- This is what your users will see when there is-->
+                <!-- an error submitting the form-->
+                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                <!-- Submit Button-->
+                <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Actualizar Datos</button>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <h3>Actualizar imagen de perfil</h3>
+    </div>
+    <div class="row">
+        <form method="post" enctype="multipart/form-data" id="upload-image-profile-form">
+            {% csrf_token %}
+            <div class="form-group">
+            <label for="exampleInputFile"><b>Cambiar imagen de perfil</b> desde archivo:</label>
+            <div class="input-group">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="exampleInputFile" name="image_profile">
+                <!--<input type="file" class="custom-file-input" id="exampleInputFile" name="image_profile" accept="image/png">-->
+                <label class="custom-file-label" for="exampleInputFile">Seleccionar imagen de perfil</label>
+              </div>
+            </div>
+          </div>
+          <div class="row item-center-in-row">
+              <button type="submit" class="btn btn-primary"><i class="far fa-file-image"></i> Subir Imagen</button>
+          </div>
+        </form>
+    </div>
+
+</header>
+
+
+
+{% endblock content %}
+
+
+

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- Masthead-->
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image-->
+        {% if product.image_product %}
+            <img class="masthead-avatar mb-5" src="{{ product.image_product.url }}" alt="ERROR IMAGEN - {{ product.image_product }}" />
+        {% else %}
+            <p>ERROR IMAGEN - {{ product.image_product }}</p>
+        {% endif %}
+        <!-- Masthead Heading-->
+        <h4 class="masthead-heading text-uppercase mb-0">Información del producto:</h4>
+        <br>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <p class="masthead-heading text-uppercase mb-0">{{ product.name }}</p>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+        <!-- <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>-->
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form id="productForm" method="POST" data-sb-form-api-token="API_TOKEN">
+                {% csrf_token %}
+
+                <!-- Name input-->
+                <div class="form-floating mb-3">
+                    <p>Nombre actual: {{ product.name|safe }}</p>
+                    <input class="form-control" id="first_name" type="text" placeholder="Nombre"
+                           value="{{ product.name|default:'' }}" data-sb-validations="required" name="name" />
+                    <label for="name">Nombre</label>
+                    <div class="invalid-feedback" data-sb-feedback="name:required">Name required.</div>
+                </div>
+                <!-- Email address input-->
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" id="description" type="text" rows="6" data-sb-validations="required" name="description">{{ product.description|default:'' }}</textarea>
+                    <label for="last_name">Descripción</label>
+                    <div class="invalid-feedback" data-sb-feedback="description:required">An description is required.</div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control" id="price" type="number" placeholder="Precio"
+                           value="{{ product.price|default:'' }}" data-sb-validations="required" name="price" />
+                    <label for="price">Precio</label>
+                </div>
+                <!---->
+                <!-- This is what your users will see when there is-->
+                <!-- an error submitting the form-->
+                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                <!-- Submit Button-->
+                <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Actualizar Datos</button>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <h3>Actualizar imagen de producto</h3>
+    </div>
+    <div class="row">
+        <form method="post" enctype="multipart/form-data" id="upload-image-profile-form">
+            {% csrf_token %}
+            <div class="form-group">
+            <label for="exampleInputFile"><b>Cambiar imagen de producto</b> desde archivo:</label>
+            <div class="input-group">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="exampleInputFile" name="image_product">
+                <!--<input type="file" class="custom-file-input" id="exampleInputFile" name="image_profile" accept="image/png">-->
+                <label class="custom-file-label" for="exampleInputFile">Seleccionar imagen de producto</label>
+              </div>
+            </div>
+          </div>
+          <div class="row item-center-in-row">
+              <button type="submit" class="btn btn-primary"><i class="far fa-file-image"></i> Subir Imagen</button>
+          </div>
+        </form>
+    </div>
+
+</header>
+
+
+
+{% endblock content %}
+
+
+
