@@ -52,14 +52,14 @@
                 </div>
                 <!-- Email address input-->
                 <div class="form-floating mb-3">
-                    <p>Apellidos actuales: {{ user_detail.last_name|safe }}</p>
+                    <p>Apellidos actuales: {{ user.last_name|safe }}</p>
                     <input class="form-control" id="last_name" type="text" placeholder="Apellidos"
                            value="{{ user.last_name|default:'' }}" data-sb-validations="required" name="last_name" />
                     <label for="last_name">Apellidos</label>
                     <div class="invalid-feedback" data-sb-feedback="last_name:required">An last_name is required.</div>
                 </div>
                 <div class="form-floating mb-3">
-                    <p>Apellidos actuales: {{ user_detail.phone_number|safe }}</p>
+                    <p>Teléfono actual: {{ user_detail.phone_number|safe }}</p>
                     <input class="form-control" id="phone" type="text" maxlength="72" placeholder="Telefono"
                            value="{{ user_detail.phone_number|default:'' }}"  name="phone" />
                     <label for="phone">Teléfono</label>
