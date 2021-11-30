@@ -3,6 +3,7 @@
 {% load static %}
 
 {% block content %}
+    {% include 'navbar.html' %}
 
 <!-- Masthead-->
 <header class="masthead bg-primary text-white text-center">
@@ -60,14 +61,15 @@
                 </div>
                 <div class="form-floating mb-3">
                     <p>Teléfono actual: {{ user_detail.phone_number|safe }}</p>
-                    <input class="form-control" id="phone" type="text" maxlength="72" placeholder="Telefono"
+                    <input class="form-control" id="phone" type="text" data-sb-validations="required" maxlength="72" placeholder="Telefono"
                            value="{{ user_detail.phone_number|default:'' }}"  name="phone" />
                     <label for="phone">Teléfono</label>
                 </div>
                 <!---->
                 <!-- This is what your users will see when there is-->
                 <!-- an error submitting the form-->
-                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">
+                    Error sending message!</div></div>
                 <!-- Submit Button-->
                 <button class="btn btn-primary btn-xl" id="submitButton" type="submit">Actualizar Datos</button>
             </form>
@@ -86,7 +88,7 @@
             <label for="exampleInputFile"><b>Cambiar imagen de perfil</b> desde archivo:</label>
             <div class="input-group">
               <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="exampleInputFile" name="image_profile">
+                  <input type="file" class="custom-file-input" id="exampleInputFile" name="image_profile" accept="image/png, image/jpg">
                 <!--<input type="file" class="custom-file-input" id="exampleInputFile" name="image_profile" accept="image/png">-->
                 <label class="custom-file-label" for="exampleInputFile">Seleccionar imagen de perfil</label>
               </div>

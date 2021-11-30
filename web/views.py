@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 # Login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout as do_logout
 from django.contrib.auth import login as do_login
 from django.contrib.auth import authenticate
 
 from django.contrib.auth.models import User
 from web.models import Product, ProfileUser
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -27,9 +28,16 @@ def login(request):
 
 
 @login_required
+def logout(request):
+    do_logout(request)
+    return redirect('login')
+
+
+@login_required
 def error_profile(request):
     context = {}
     return render(request, 'error-perfil.html', context)
+
 
 @login_required
 def index(request):
@@ -86,6 +94,7 @@ def user_detail(request, user_id):
                 if 'first_name' in request.POST and 'last_name' in request.POST:
                     first_name = request.POST['first_name']
                     last_name = request.POST['last_name']
+                    phone = None
 
                     User.objects.filter(username=username).update(first_name=first_name, last_name=last_name)
                     if 'phone' in request.POST and request.POST['phone']:
