@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 
 from django.contrib.auth.models import User
 from web.models import Product, ProfileUser
+from web.block_session import clean_block_text, error_login_session, is_blocked
 
 # Create your views here.
 
@@ -16,12 +17,25 @@ def login(request):
 
     if request and request.POST:
         username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            do_login(request, user)
-            request.session['username'] = username
-            return redirect('index')
+
+        context['error'] = None
+
+        if not is_blocked(username)[0]:
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                do_login(request, user)
+                request.session['username'] = username
+                return redirect('index')
+            else:
+                message_error_login = error_login_session(username)
+                request.session['time_unblock'] = str(message_error_login[1].time())
+        else:
+            message_error_login = error_login_session(username)
+            if message_error_login[0]:
+                context['error'] = 'USUARIO BLOQUEADO'
+                request.session['time_unblock'] = str(message_error_login[1].time())
+
 
     return render(request, 'login.html', context)
 

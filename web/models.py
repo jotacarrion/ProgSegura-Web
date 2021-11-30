@@ -3,7 +3,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class ProfileUser(models.Model):
     rol_choices = (
         ('admin', 'Empleado'),
@@ -18,8 +17,14 @@ class ProfileUser(models.Model):
     def __unicode__(self, ):
         return str(self.phone_number)
 
+
 class Product(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=2048)
     image_product = models.ImageField(upload_to='products', default=True, blank=True, null=True)
     price = models.FloatField()
+
+
+class AttempLogin(models.Model):
+    user = models.CharField(max_length=32, blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True)
