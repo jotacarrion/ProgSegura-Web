@@ -20,6 +20,7 @@ from web import views
 from web_site import settings
 
 urlpatterns = [
+    path('login/', views.login, name='login'),
     #path('user-detail/?P<username>\w+)/$', views.user_detail, name='user-detail'),
     path('user-detail/<int:user_id>/', views.user_detail, name='user-detail'),
     path('product-update/<int:product_id>/', views.product_update, name='product-update'),
@@ -27,8 +28,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('error', views.error_profile, name='error-profile'),
     path('admin/', admin.site.urls),
+    path('logout', views.logout, name='logout'),
 
     #path('user-detail', views.user_detail, name='user-detail'),
 
-    path('login', views.login, name='login'),
+
 ] + static (settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
