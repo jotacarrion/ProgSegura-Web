@@ -25,6 +25,7 @@ urlpatterns = [
     path('product-update/<int:product_id>/', views.product_update, name='product-update'),
     #path('products', views.products, name='products'),
     path('', views.index, name='index'),
+    path('error', views.error_profile, name='error-profile'),
     path('admin/', admin.site.urls),
 
     #path('user-detail', views.user_detail, name='user-detail'),

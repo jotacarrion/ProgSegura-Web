@@ -30,7 +30,7 @@
                                     <i class="fas fa-plus fa-3x"></i></div>
                             </div>
                             <img class="img-fluid" src="{{ product.image_product.url }}" alt="ERROR IMAGEN - {{ product.image_product }}" />
-                            <p>{{ product.description|safe }}...</p>
+                            <p>{{ product.description|escape }}...</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -163,7 +163,7 @@
                                     <img class="img-fluid rounded mb-5" src="{{ product.image_product.url }}"
                                          alt="ERROR IMAGEN - {{ product.image_product }}" />
                                     <!-- Portfolio Modal - Text-->
-                                    <p class="mb-4">{{ product.description|safe }}</p>
+                                    <p class="mb-4">{{ product.description|escape }}</p>
                                     <p class="mb-4"><strong>{{ product.price }} €</strong></p>
                                     <button class="btn btn-primary" href="#!" data-bs-dismiss="modal">
                                         <i class="fas fa-times fa-fw"></i>
