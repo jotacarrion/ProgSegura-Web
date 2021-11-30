@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 
 from django.contrib.auth.models import User
 from web.models import Product, ProfileUser
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -15,17 +16,24 @@ def login(request):
     if request and request.POST:
         print('-request.POST', request.POST)
         username = request.POST['username']
+
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             do_login(request, user)
+            request.session['username'] = username
             return redirect('index')
 
     return render(request, 'login.html', context)
 
 
+@login_required
 def index(request):
     context = {}
+
+    username = request.session.get('username')
+    user = User.objects.get(username=username)
+    context['user'] = user
 
     all_products = Product.objects.all()
     context['all_products'] = all_products
